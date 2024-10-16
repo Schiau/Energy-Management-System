@@ -1,6 +1,6 @@
 package com.schiau.App.config;
 
-import com.schiau.App.user.UserRepository;
+import com.schiau.App.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
