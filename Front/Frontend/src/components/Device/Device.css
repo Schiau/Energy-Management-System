@@ -1,0 +1,17 @@
+.device-card {
+    box-sizing:border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0px;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+.device-card h2 {
+    margin: 0 0 8px 0;
+}
+
+.device-card p {
+    margin: 4px 0;
+}

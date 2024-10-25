@@ -1,0 +1,29 @@
+
+
+.generic-btn {
+    background-color: #e0f7fa; 
+    color: #00695c;
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    font-size: 16px; 
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+.generic-btn img {
+    margin-right: 8px; 
+    width: 20px;
+    height: 20px; 
+}
+
+.generic-btn:hover {
+    background-color: #b2ebf2; 
+}
+
+.generic-btn:focus {
+    outline: none; 
+    box-shadow: 0 0 5px #00bcd4;
+}
