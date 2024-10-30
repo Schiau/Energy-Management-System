@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Microservice 1
+  postgres-db1:
+    image: postgres:13
+    container_name: postgres-db1
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: app1
+    ports:
+      - "5433:5432"  # Expose a different port to avoid conflicts
+    networks:
+      - spring-react-network
+    volumes:
+      - postgres-data1:/var/lib/postgresql/data
+
+  # PostgreSQL Database for Microservice 2
+  postgres-db2:
+    image: postgres:13
+    container_name: postgres-db2
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: app2
+    ports:
+      - "5434:5432"  # Expose a different port to avoid conflicts
+    networks:
+      - spring-react-network
+    volumes:
+      - postgres-data2:/var/lib/postgresql/data
+
+  # Spring Boot Microservice 1 (User Service)
+  microservice1:
+    build:
+      context: ./users  # Path to your user service directory
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db1:5432/app1
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - postgres-db1
+    ports:
+      - "8080:8080"  # Expose port for user service
+    networks:
+      - spring-react-network
+
+  # Spring Boot Microservice 2 (Devices Service)
+  microservice2:
+    build:
+      context: ./devices  # Path to your devices service directory
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db2:5432/app2
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - postgres-db2
+    ports:
+      - "8081:8081"  # Expose port for devices service
+    networks:
+      - spring-react-network
+
+  # React Frontend
+  react-app:
+    build:
+      context: ./Frontend  # Path to your React frontend directory
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"  # Expose port for React app
+    networks:
+      - spring-react-network
+
+networks:
+  spring-react-network:
+
+volumes:
+  postgres-data1:
+  postgres-data2:

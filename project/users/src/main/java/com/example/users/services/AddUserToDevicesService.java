@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @AllArgsConstructor
 public class AddUserToDevicesService {
-    private final String URL_DEVICES = "http://localhost:8081/users/";
+    private final String URL_DEVICES = "http://microservice2:8081/users/";
 
     private final RestTemplate restTemplate;
 
