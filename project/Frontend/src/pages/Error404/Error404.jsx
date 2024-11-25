@@ -5,7 +5,7 @@ import { useEffect } from "react";
 function Error404() {
 
     useEffect(() => {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
     }, []);
     return (
         <div className="error-container">

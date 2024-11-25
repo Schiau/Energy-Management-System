@@ -7,7 +7,7 @@ import './AdminPage.css'
 import { useNavigate } from 'react-router-dom'
 import AdminDeviceList from '../../components/AdminDeviceList/AdminDeviceList'
 
-function AdminPage({ reloadKey })
+function AdminPage()
 {
     const [devices, setDevices] = useState([]); 
     const [users, setUsers] = useState([]);

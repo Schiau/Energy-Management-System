@@ -16,7 +16,7 @@ function FormLogIn()
   useEffect(() => {
       const checkToken = async () => {
           try {
-              const token = localStorage.getItem("token");
+              const token = sessionStorage.getItem("token");
               if (token) {
                   const currentUser = await getCurrentUser(token); 
                   console.log(currentUser.role);
@@ -40,7 +40,7 @@ function FormLogIn()
       try {
           const token = await logIn(name, password); 
           if (token) {
-              localStorage.setItem("token", token);
+            sessionStorage.setItem("token", token);
               const currentUser = await getCurrentUser(token); 
 
               if (currentUser.role === "ADMIN") {

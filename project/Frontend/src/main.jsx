@@ -11,6 +11,7 @@ import AdminPage from './pages/AdminPage/AdminPage'
 import SaveUserPage from './pages/SaveUserPage/SaveUserPage'
 import SaveDevicePage from './pages/SaveDevicePage/SaveDevicePage'
 import AdminUserDevices from './pages/AdminUserDevices/AdminUserDevices'
+import UserDevicePage from './pages/UserDevicePage/UserDevicePage'
 
 const router = createBrowserRouter([
   {  
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
   element: <AdminUserDevices />,
   errorElement: <Error404 />,
 },
+{
+  path: "/user/device/:idDevice?",
+  element: <UserDevicePage />,
+  errorElement: <Error404 />,
+}
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>

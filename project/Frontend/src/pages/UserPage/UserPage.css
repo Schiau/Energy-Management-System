@@ -8,6 +8,7 @@
     font-family: Arial, sans-serif;
     min-height: 100%; 
     overflow-y: hidden;
+    height: 100%;
 }
 
 .user-page h1 {
@@ -16,9 +17,40 @@
     font-size: 2.5em;
     text-align: center; 
 }
-.user-page .buttons
-{
+
+.user-page .buttons {
     display: flex;
     gap: 15px;
     align-items: center;
+}
+
+.alert-title {
+    font-size: 1.2em;
+    font-weight: bold; 
+    margin-bottom: 10px; 
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    width: 100%;
+}
+
+.alert-devices{
+    flex-grow: 0.1;
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border-radius: 10px; 
+    max-height: 100px;
+    overflow-y: auto;
+}
+.alert-devices ul {
+    list-style-type: circle;
+    padding: 0;
+}
+
+.alert-devices li {
+    margin-bottom: 10px;
 }

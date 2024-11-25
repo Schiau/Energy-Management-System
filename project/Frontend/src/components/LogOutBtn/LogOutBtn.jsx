@@ -5,7 +5,7 @@ function LogOutBtn(){
     const navigate = useNavigate();
     const handleClick = () => 
     {
-        localStorage.removeItem("token")
+        sessionStorage.removeItem("token")
         navigate("/")
     }
 

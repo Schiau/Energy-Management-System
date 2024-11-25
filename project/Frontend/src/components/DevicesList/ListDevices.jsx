@@ -3,8 +3,10 @@ import Device from '../Device/Device';
 import './ListDevices.css'
 import AddDeviceToUserBtn from '../AddDeviceToUserBtn/AddDeviceToUserBtn'
 import RemoveDevceUserBtn from '../RemoveDeviceUserBtn/RemoveDeviceUserBtn';
+import { useNavigate } from 'react-router-dom';
 
-function ListDevice({title="Device List", devices = [], haveRemoveForAdmin = false, haveAddForAdmin = false, userId, updateFunction}) {
+function ListDevice({title="Device List", devices = [], haveRemoveForAdmin = false, haveAddForAdmin = false, userId, updateFunction, onClick=false}) {
+    const navigator = useNavigate()
     return (
         <div className="list-device">
             <h2 className="list-device-title">{title}</h2>
@@ -19,6 +21,7 @@ function ListDevice({title="Device List", devices = [], haveRemoveForAdmin = fal
                                 location={location}
                                 energyConsumption={energyConsumption}
                                 description={description}
+                                onClick={onClick? () => navigator(`/user/device/${id}`) : () => {return}}
                             />
                             <div className="admin-btn">
                                 {haveAddForAdmin && <AddDeviceToUserBtn userId={userId} deviceId={id} updateFunction={updateFunction}/>}
@@ -47,6 +50,7 @@ ListDevice.propTypes = {
     userId:PropTypes.number,
     deviceId:PropTypes.number,
     updateFunction:PropTypes.func,
+    onClick:PropTypes.bool
 };
 
 export default ListDevice;

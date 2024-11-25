@@ -4,7 +4,7 @@ const API_BASE_URL = 'http://localhost:8080/api/v1';
 async function GetAll() {
     const response = await fetch(`${API_BASE_URL}/user/all`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     });
     if (response.ok) {
         return await response.json();
@@ -16,7 +16,7 @@ async function GetAll() {
 async function GetUserById(id) {
     const response = await fetch(`${API_BASE_URL}/user/${id}`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     });
     if (response.ok) {
         return await response.json();
@@ -31,7 +31,7 @@ async function addNew(user) {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         },
         body: JSON.stringify(user)
     });
@@ -48,7 +48,7 @@ async function update(user, id) {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         },
         body: JSON.stringify(user)
     });
@@ -63,7 +63,7 @@ async function update(user, id) {
 async function remove(id) {
     const response = await fetch(`${API_BASE_URL}/user/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     });
     if (response.ok) {
         return "User deleted";
@@ -80,7 +80,7 @@ async function logIn(email, password) {
     });
     const data = await response.json();
     if (response.ok && data.success) {
-        localStorage.setItem('token', data.token);
+        sessionStorage.setItem('token', data.token);
         return data.token;
     }
     throw new Error(data.error || "Error registering user");
@@ -95,7 +95,7 @@ async function authentification(firstName, lastName, email, password) {
     });
     const data = await response.json();
     if (response.ok && data.success) {
-        localStorage.setItem('token', data.token);
+        sessionStorage.setItem('token', data.token);
         return data.token;
     }
     throw new Error(data.error || "Error registering user");
@@ -105,7 +105,7 @@ async function authentification(firstName, lastName, email, password) {
 async function getRollFromToken() {
     const response = await fetch(`${API_BASE_URL}/user/role`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     });
     const data = await response.json();
     return response.ok ? data.admin : Promise.reject("Error retrieving role");
@@ -115,7 +115,7 @@ async function getRollFromToken() {
 async function getUserByToken() {
     const response = await fetch(`${API_BASE_URL}/user`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` ,        headers: { 'Content-Type': 'application/json' }}
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` ,        headers: { 'Content-Type': 'application/json' }}
     });
     if (response.ok) {
         return await response.json();

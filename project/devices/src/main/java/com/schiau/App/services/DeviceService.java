@@ -17,6 +17,7 @@ public class DeviceService {
     private final DeviceRepository deviceRepository;
 
     private final UserRepository userRepository;
+    private final RabbitMQService rabbitMQService;
 
     public List<Device> getAllDevices() {
         return deviceRepository.findAll();
@@ -27,8 +28,10 @@ public class DeviceService {
     }
 
     public Device createDevice(Device device) {
-            device.setCustomer(null);
-            return deviceRepository.save(device);
+        device.setCustomer(null);
+        Device savedDevice = deviceRepository.save(device);
+        rabbitMQService.sendDeviceMessage(savedDevice);
+        return savedDevice;
     }
 
     public Device updateDevice(Integer id, Device device) {
@@ -36,10 +39,17 @@ public class DeviceService {
             return null;
         }
         device.setId(id);
-        return deviceRepository.save(device);
+        Device savedDevice = deviceRepository.save(device);
+        rabbitMQService.sendDeviceMessage(savedDevice);
+        return savedDevice;
     }
 
     public void deleteDevice(Integer id) {
+        Device device = Device.builder()
+                .id(id)
+                .energyConsumption(-1.0)
+                .build();
+        rabbitMQService.sendDeviceMessage(device);
         deviceRepository.deleteById(id);
     }
 

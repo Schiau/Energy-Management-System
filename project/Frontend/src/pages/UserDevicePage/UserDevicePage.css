@@ -1,0 +1,35 @@
+.user-device-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.selected-date {
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%; 
+    justify-content: space-around; 
+}
+
+.calendar {
+    flex: 1;
+    max-height: 80vh;
+    padding: 10px;
+}
+
+.energy-chart {
+    flex: 1;
+    flex-grow: 2;
+    max-height: 80vh;
+    padding: 10px;
+}
+
+.back-btn {
+    align-self: flex-start;
+    padding: 10px;
+}

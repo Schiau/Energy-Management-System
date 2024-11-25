@@ -1,7 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GetUserById} from '../../services/ServiceUser'
 import {getRollFromToken} from '../../services/ServiceUser'
 import ListDevice from '../../components/DevicesList/ListDevices'
 import { GetUnassignedDevices, GetDevicesByUserId } from '../../services/ServiceDevice';
@@ -13,7 +11,6 @@ function AdminUserDevices()
     const { id } = useParams(); 
     const[userDevices, setUserDevices] = useState([])
     const[devices, setDevices] = useState([])
-    const navigate = useNavigate()
 
     const featchData = async () => {
         const checkAdmin = async () => {

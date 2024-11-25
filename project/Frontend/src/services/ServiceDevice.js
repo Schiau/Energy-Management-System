@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:8081";
 
 const getAuthHeaders = () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -81,6 +81,7 @@ async function RemoveDeviceFromUser(deviceId) {
 }
 
 
+
 export { 
     GetAll, 
     GetDeviceById, 
@@ -90,5 +91,5 @@ export {
     GetDevicesByUserId, 
     GetUnassignedDevices, 
     AddDeviceToUser, 
-    RemoveDeviceFromUser,
+    RemoveDeviceFromUser
 }

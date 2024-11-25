@@ -15,7 +15,7 @@ function FormRegistration() {
     useEffect(() => {
         const checkToken = async () => {
             try {
-                const token = localStorage.getItem("token");
+                const token = sessionStorage.getItem("token");
                 if (token) {
                     navigator("/user");
                 }
@@ -33,7 +33,7 @@ function FormRegistration() {
         try {
             const token = await authentification(user.firstName,user.lastName,user.email,user.password); 
             if (token) {
-                localStorage.setItem("token", token);
+                sessionStorage.setItem("token", token);
                 navigator("/user");
             } else {
                 alert("Registration failed");
