@@ -2,6 +2,24 @@ version: '3.8'
 
 services:
 
+  reverse-proxy:
+    image: traefik:v3.2
+    command: 
+      - --api.insecure=true 
+      - --providers.docker
+      - --accesslog=true
+      - --accesslog.filepath=/var/log/traefik/access.log
+      - --log.level=DEBUG
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"    
+      - "8085:8080"  
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik_logs:/var/log/traefik
+    networks:
+      - spring-react-network
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -16,6 +34,7 @@ services:
 
   # PostgreSQL Database for Microservice 1
   postgres-db1:
+    restart: always
     image: postgres:13
     container_name: postgres-db1
     environment:
@@ -31,6 +50,7 @@ services:
 
   # PostgreSQL Database for Microservice 2
   postgres-db2:
+    restart: always
     image: postgres:13
     container_name: postgres-db2
     environment:
@@ -46,6 +66,7 @@ services:
 
   # PostgreSQL Database for Microservice 3
   postgres-db3:
+    restart: always
     image: postgres:13
     container_name: postgres-db3
     environment:
@@ -61,6 +82,7 @@ services:
 
   # Spring Boot Microservice 1 (User Service)
   microservice1:
+    restart: always
     build:
       context: ./users 
       dockerfile: Dockerfile
@@ -68,15 +90,18 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db1:5432/app1
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
-    depends_on:
-      - postgres-db1
-    ports:
-      - "8080:8080" 
+    deploy:
+      replicas: 2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice1.rule=Host(`microservice1.localhost`)"
+      - "traefik.http.services.microservice1.loadbalancer.server.port=8080"
     networks:
       - spring-react-network
 
   # Spring Boot Microservice 2 (Devices Service)
   microservice2:
+    restart: always
     build:
       context: ./devices  
       dockerfile: Dockerfile
@@ -88,15 +113,17 @@ services:
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
-    depends_on:
-      - postgres-db2
-      - rabbitmq
-    ports:
-      - "8081:8081"
+    deploy:
+      replicas: 2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice2.rule=Host(`microservice2.localhost`)"
+      - "traefik.http.services.microservice2.loadbalancer.server.port=8081"
     networks:
       - spring-react-network
 
   microservice3:
+    restart: always
     build:
       context: ./measurement  
       dockerfile: Dockerfile
@@ -108,11 +135,12 @@ services:
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
-    depends_on:
-      - postgres-db3
-      - rabbitmq
-    ports:
-      - "8082:8082"
+    deploy:
+      replicas: 1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice3.rule=Host(`microservice3.localhost`)"
+      - "traefik.http.services.microservice3.loadbalancer.server.port=8082"
     networks:
       - spring-react-network
 
@@ -134,3 +162,4 @@ volumes:
   postgres-data1:
   postgres-data2:
   postgres-data3:
+  traefik_logs:

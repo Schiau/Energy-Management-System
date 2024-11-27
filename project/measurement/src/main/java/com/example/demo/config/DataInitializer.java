@@ -23,6 +23,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if (deviceRepository.count() != 0 && measurementRepository.count() != 0)
+            return;
+
         Device device1 = Device.builder().deviceId(1).energyConsumption(2.5).build();
         Device device2 = Device.builder().deviceId(2).energyConsumption(1.8).build();
         Device device3 = Device.builder().deviceId(3).energyConsumption(1.0).build();

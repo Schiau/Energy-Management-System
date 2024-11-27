@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api/v1';
+const API_BASE_URL = 'http://microservice1.localhost/api/v1';
 
 // Fetch all users
 async function GetAll() {

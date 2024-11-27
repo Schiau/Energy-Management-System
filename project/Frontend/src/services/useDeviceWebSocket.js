@@ -10,7 +10,7 @@ const useDeviceWebSocket = () => {
     useEffect(() => {
         // Initialize the STOMP client
         client.current = new Client({
-            brokerURL: 'ws://localhost:8082/ws',
+            brokerURL: 'ws://microservice3.localhost/ws',
             debug: (str) => console.log("STOMP Debug:", str),
             reconnectDelay: 5000, // Retry connection after 5 seconds
         });

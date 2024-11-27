@@ -16,6 +16,9 @@ public class DataInitializer implements ApplicationRunner {
     private final PasswordEncoder encoder;
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        if (userRepository.count() != 0)
+            return;
+
         User user1 = User.builder()
                 .firstName("John")
                 .lastName("Doe")

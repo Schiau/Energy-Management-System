@@ -16,6 +16,9 @@ public class DataInitializer implements CommandLineRunner {
     private DeviceRepository deviceRepository;
     @Override
     public void run(String... args) throws Exception {
+        if (userRepository.count() != 0 || deviceRepository.count() != 0)
+            return;
+
         Customer customer1 = Customer.builder().realId(1).build();
         Customer customer2 = Customer.builder().realId(2).build();;
 
