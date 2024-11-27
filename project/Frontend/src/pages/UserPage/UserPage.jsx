@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ListDevice from "../../components/DevicesList/ListDevices";
 import LogOutBtn from '../../components/LogOutBtn/LogOutBtn'
 import { GetDevicesByUserId } from "../../services/ServiceDevice";
@@ -12,32 +12,25 @@ function UserPage() {
     const [devicesOverEnergy, setDevicesOverEnergy] = useState([]);
     const { isConnected, overEnergyMessage, init } = useDeviceWebSocket();
 
-
-    const filteredDevices = useMemo(() => {
-        return devices.filter(item =>
-            overEnergyMessage.some(firstItem => firstItem.deviceId === item.id)
-        );
-    }, [devices, overEnergyMessage]);
-
-    const fetchDevices = useCallback(async () => {
-        const currentUser = await getUserByToken();
-        const devicesData = await GetDevicesByUserId(currentUser.id);
-        setDevices(devicesData);
-        setText(`${currentUser.firstName} ${currentUser.lastName}`);
-    }, []);
-
-    // Fetch devices on first load and when `isConnected` changes
     useEffect(() => {
         if (isConnected) {
             init();
-            fetchDevices();
         }
-    }, [isConnected, fetchDevices, init]);
+    },[isConnected])
 
-    // Update the `devicesOverEnergy` whenever `filteredDevices` changes
+    const filteredDevices = () =>  devices.filter(item => overEnergyMessage.some(firstItem => firstItem.deviceId === item.id))
+
     useEffect(() => {
-        setDevicesOverEnergy(filteredDevices);
-    }, [filteredDevices]);
+        const fetchDevices = async () => {
+            const currentUser = await getUserByToken();
+            const devicesData = await GetDevicesByUserId(currentUser.id);
+            setDevices(devicesData);
+            setText(`${currentUser.firstName} ${currentUser.lastName}`);
+            setDevicesOverEnergy(filteredDevices);
+            console.log(overEnergyMessage)
+        }
+            fetchDevices();
+    }, [overEnergyMessage])
     
     return (
         <div className="user-page">

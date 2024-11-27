@@ -62,10 +62,12 @@ public class MeasurementService {
         {
             Date currentDate = new Date(baseDate.getTime());
             currentDate.setHours(i);
+            currentDate.setDate(currentDate.getDate() + 1);
             Measurement measurement = measurementRepository.findMeasurementByDateAndDevice_DeviceId(currentDate, deviceId).orElse(null);
             if(measurement != null)
                 result.add(measurement);
         }
+        log.info(result.toString());
         return result.stream().map((i  ->
                 MeasurementDto.builder()
                         .hour(String.format("%02d:00", i.getDate().getHours()))

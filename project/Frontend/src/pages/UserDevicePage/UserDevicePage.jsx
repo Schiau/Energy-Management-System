@@ -25,7 +25,9 @@ function UserDevicePage() {
 
     useEffect(() => {
         let parts = currentDate.split("/");
-        let jsDate = new Date(parts[2], parts[1] - 1, parts[0]);
+        console.log(parts);
+        let jsDate = new Date(parts[2], parts[1]-1, parts[0]);
+        console.log(jsDate)
         const measurementDto = {
             idDevice: idDevice,
             date: jsDate,

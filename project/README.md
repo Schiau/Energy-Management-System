@@ -14,7 +14,7 @@ Follow these steps to run the application:
    Open your terminal and run the following command to clone the project repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://gitlab.com/Schiau1/ds2024_30643_schiau_alex_assigment_1
    cd Project
 
 2. **Run Docker**

@@ -35,17 +35,17 @@ public class DataInitializer implements CommandLineRunner {
         deviceRepository.save(device4);
         deviceRepository.save(device5);
 
-        LocalDateTime baseDate = LocalDateTime.of(2024, 11, 14, 0, 0);
+        Date baseDate = new Date(124,10,14);
         List<Device> devices = List.of(device1, device2, device3, device4);
         for (Device device : devices) {
             List<Measurement> measurements = new ArrayList<>();
 
             for (int hour = 0; hour < 24; hour++) {
-                LocalDateTime timestamp = baseDate.plusHours(hour);
-                Date date = Date.from(timestamp.atZone(ZoneId.systemDefault()).toInstant());
+                Date currentDate = new Date(baseDate.getTime());
+                currentDate.setHours(hour);
                 float energy = (float) (device.getEnergyConsumption() * (0.5 + Math.random()));
                 Measurement measurement = Measurement.builder()
-                        .date(date)
+                        .date(currentDate)
                         .energy(energy)
                         .aboveEnergyLimit(energy >= device.getEnergyConsumption())
                         .device(device)

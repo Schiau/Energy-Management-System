@@ -50,6 +50,7 @@ public class MeasurementController {
     @MessageMapping("/measurement")
     @SendTo("/devices")
     public List<MeasurementDto> getMeasurementByIdDeviceAndDate(@Payload MeasurementByDeviceIdAndDateDto request) {
+        log.info(request.toString());
         List<MeasurementDto> result = measurementService.getMeasurementsForDeviceAndDate(request.getIdDevice(), request.getDate());
         return result;
     }

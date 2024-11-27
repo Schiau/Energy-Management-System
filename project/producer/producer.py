@@ -5,10 +5,10 @@ import csv
 import pika
 from time import sleep
 
-CSV_FILE = "sensor.csv"
+CSV_FILE = "./sensor.csv"
 TIME_SLEEP = 10
 IDS = [1, 2,3,4]
-RABBITMQ_HOST = 'localhost'
+RABBITMQ_HOST = 'localhost' #rabbitmq #localhost
 QUEUE_NAME = 'sensor_data_queue'
 
 
