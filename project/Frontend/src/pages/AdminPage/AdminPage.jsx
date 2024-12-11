@@ -6,6 +6,7 @@ import {GetAll as GetAllDevices} from '../../services/ServiceDevice'
 import './AdminPage.css'
 import { useNavigate } from 'react-router-dom'
 import AdminDeviceList from '../../components/AdminDeviceList/AdminDeviceList'
+import ChatRoom from '../../components/ChatRoom/ChatRoom'
 
 function AdminPage()
 {
@@ -39,6 +40,7 @@ function AdminPage()
         <div className="admin-page-container">
             <h1>Hello Admin</h1>
             <div className="admin-content">
+                <ChatRoom userName="Admin"/>
                 <UserList users={users} updateFunction={fetchUsers}/>
                 <div className='right-colom'>
                     <AdminDeviceList devices={devices} updateFunction={fetchDevices}/>

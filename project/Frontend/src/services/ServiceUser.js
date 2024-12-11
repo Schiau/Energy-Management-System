@@ -1,5 +1,6 @@
 const API_BASE_URL = 'http://microservice1.localhost/api/v1';
-
+//http://microservice1.localhost
+//http://localhost:8080
 // Fetch all users
 async function GetAll() {
     const response = await fetch(`${API_BASE_URL}/user/all`, {

@@ -1,5 +1,6 @@
 const BASE_URL = "http://microservice2.localhost";
-
+//http://microservice2.localhost
+//http://localhost:8081
 const getAuthHeaders = () => {
     const token = sessionStorage.getItem('token');
     return {

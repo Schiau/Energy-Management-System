@@ -1,10 +1,11 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import ListDevice from "../../components/DevicesList/ListDevices";
 import LogOutBtn from '../../components/LogOutBtn/LogOutBtn'
 import { GetDevicesByUserId } from "../../services/ServiceDevice";
 import { getUserByToken } from '../../services/ServiceUser';
 import './UserPage.css';
 import useDeviceWebSocket from '../../services/useDeviceWebSocket';
+import ChatRoom from '../../components/ChatRoom/ChatRoom';
 function UserPage() {
 
     const [text, setText] = useState('');
@@ -36,6 +37,7 @@ function UserPage() {
         <div className="user-page">
             <h1>Welcome {text}</h1>
             <div className='container'>
+            <ChatRoom userName={text}/>
             <ListDevice devices={devices} onClick={true}/> 
                 {devicesOverEnergy.length !== 0 && (
                 <div className="alert-devices">

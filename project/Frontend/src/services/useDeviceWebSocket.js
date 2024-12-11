@@ -7,6 +7,9 @@ const useDeviceWebSocket = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessages] = useState([]);
     const [overEnergyMessage, setOverEnergyMessage] = useState([]);
+
+    //ws://localhost:8082
+    //ws://microservice3.localhost
     useEffect(() => {
         // Initialize the STOMP client
         client.current = new Client({

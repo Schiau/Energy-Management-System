@@ -7,7 +7,7 @@ from time import sleep
 
 CSV_FILE = "./sensor.csv"
 TIME_SLEEP = 10
-IDS = [1, 2,3,4]
+IDS = [1, 2,3,4, 5]
 RABBITMQ_HOST = 'localhost' #rabbitmq #localhost
 QUEUE_NAME = 'sensor_data_queue'
 
