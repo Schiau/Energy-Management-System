@@ -10,9 +10,9 @@ A distributed system with microservices for managing energy consumption, device 
 - **Simulated Devices**: Emulates energy metering.
 
 ## Tech Stack
-- **Backend**: Spring REST, Hibernate  
-- **Frontend**: ReactJS or AngularJS  
-- **Databases**: MySQL/PostgreSQL  
+- **Backend**: Spring Boot, Hibernate  
+- **Frontend**: ReactJS 
+- **Databases**: PostgreSQL  
 - **Deployment**: Docker  
 
 ## Prerequisites
