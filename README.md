@@ -4,7 +4,7 @@ A distributed system with microservices for managing energy consumption, device 
 
 ## Key Features
 - **Microservices**: User Management, Device Management, Monitoring, and Chat.
-- **Secure Communication**: HTTPS, SSL, and JWT.
+- **Secure Communication**: JWT.
 - **Asynchronous Messaging**: RabbitMQ.
 - **Real-time Updates**: WebSockets.
 - **Simulated Devices**: Emulates energy metering.
